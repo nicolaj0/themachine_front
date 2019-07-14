@@ -4,7 +4,6 @@ import {environment} from "../../environments/environment";
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
 import {UIService} from "../shared/ui.service";
-import {Camp} from "../Camp/camp";
 import {UserBevarage} from "./userBevarage";
 import {Observable} from "rxjs";
 
