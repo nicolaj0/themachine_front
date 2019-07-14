@@ -1,0 +1,30 @@
+<section >
+  <form #f="ngForm" (ngSubmit)="onAddCamp(f)" class="new-camp" fxLayout fxLayoutAlign="center">
+    <mat-card fxFlex.xs="100%" fxFlex="40%">
+      <mat-card-title fxLayoutAlign="center">add new camp</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutAlign="center">
+        <mat-form-field>
+          <input [ngModel]="'camp'" matInput required placeholder="camp name" name="name" id="name" type="text">
+        </mat-form-field>
+        <mat-form-field>
+          <input ngModel matInput required placeholder="moniker" name="moniker" id="moniker" type="text" minlength="6"
+                 maxlength="6">
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            placeholder="Camp date"
+            [matDatepicker]="picker"
+            ngModel name="campDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="center">
+        <button *ngIf="!loading" type="submit" mat-button [disabled]="!f.valid">Add Camp</button>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>
