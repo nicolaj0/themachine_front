@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {map} from "rxjs/operators";
 import {environment} from "../../environments/environment";
 import * as  moment from "moment";
+import {UserBevarage} from "../the-machine/userBevarage";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -14,6 +15,7 @@ const BACKEND_URL = environment.apiUrl;
 export class AuthService {
 
   authChange = new Subject<boolean>();
+  beverageChange = new Subject<UserBevarage>();
   token: any;
   private tokenExpiration: number;
 
@@ -27,6 +29,9 @@ export class AuthService {
     this.router.navigate(['/signin']);
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
+    localStorage.removeItem("sugar");
+    localStorage.removeItem("mug");
+    localStorage.removeItem("type");
   }
 
   public login(creds) {
@@ -36,15 +41,19 @@ export class AuthService {
           let tokenInfo = response;
           this.token = tokenInfo.token;
           this.tokenExpiration = tokenInfo.expiration;
+          let beverage = new UserBevarage();
+          beverage.sugar = <number>tokenInfo.lastSelection.sugar
+          beverage.beverageType = <number>tokenInfo.lastSelection.beverageType
+          beverage.useOwnMug = <boolean>tokenInfo.lastSelection.useOwnMug
+          this.beverageChange.next(beverage)
           this.authChange.next(true)
           this.setSession(response);
-          this.router.navigate(['/camp'])
+          this.router.navigate(['/machine'])
 
         }));
   }
 
   public isAuth() {
-    console.log(moment())
     let b = moment().isBefore(this.getExpiration());
     if (b){
       this.authChange.next(true)
@@ -66,14 +75,13 @@ export class AuthService {
     return moment(expiresAt);
   }
 
-
-
-
-
   private setSession(authResult) {
     const expiresAt = new Date(authResult.expiration);
 
     localStorage.setItem('id_token', authResult.token);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    localStorage.setItem("sugar", JSON.stringify(authResult.lastSelection.sugar.valueOf()) );
+    localStorage.setItem("mug", JSON.stringify(authResult.lastSelection.useOwnMug.valueOf()) );
+    localStorage.setItem("type", JSON.stringify(authResult.lastSelection.beverageType.valueOf()) );
   }
 }

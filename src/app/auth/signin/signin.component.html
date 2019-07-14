@@ -31,22 +31,6 @@
       <mat-error *ngIf="password.hasError('required')">Field required</mat-error>
 
     </mat-form-field>
-
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="Your birthdate"
-        [matDatepicker]="picker"
-        [max]="maxDate"
-        ngModel name="birthdate"
-        >
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-checkbox ngModel name="agree"  color="primary">Agree to Terms and Conditions.</mat-checkbox>
-
-
-    <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Submti</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Login</button>
   </form>
 </section>

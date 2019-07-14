@@ -1,0 +1,41 @@
+<section>
+  <form #f="ngForm" (ngSubmit)="onMakeCoffee(f)" class="machine" fxLayout fxLayoutAlign="center">
+    <mat-card fxFlex.xs="100%" fxFlex="40%">
+      <mat-card-title fxLayoutAlign="center">Select your beverage</mat-card-title>
+      <mat-card-content fxLayoutGap="20px" fxLayout="column" fxLayoutAlign="center center">
+        <mat-button-toggle-group
+          fxLayoutAlign="center center"
+          name="beverage"
+          required
+          [(ngModel)]="model.beverageType"
+          aria-label="Font Style">
+          <mat-button-toggle
+            *ngFor="let b of beverageTypes"
+            [value]="b.id">{{b.name}}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-slider
+          class="example-margin"
+          [max]="max"
+          [min]="min"
+          [step]="step"
+          name="sugar"
+          id="sugar"
+          [(ngModel)] = "model.sugar"
+        >
+        </mat-slider>
+        <mat-checkbox
+          name="mug"
+          color="primary"
+          [(ngModel)] = "model.useOwnMug"
+        >I use my mug.</mat-checkbox>
+
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="center">
+        <button *ngIf="!loading" mat-raised-button type="submit" mat-button [disabled]="!f.valid">Start</button>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

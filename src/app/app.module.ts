@@ -9,15 +9,13 @@ import {FormsModule} from "@angular/forms";
 import {HeaderComponent} from "./header/header.component";
 import {DataService} from "./shared/data-service.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import { CampsComponent } from './Camp/camps/camps.component';
 import {AppMaterialModule} from "./app-material/app-material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AuthService} from "./auth/auth.service";
-import {CampService} from "./Camp/camp.service";
-import { AddCampComponent } from './Camp/add-camp/add-camp.component';
-import { DashboardComponent } from './Camp/dashboard/dashboard.component';
 import {UIService} from "./shared/ui.service";
 import {TokenInterceptorService} from "./shared/token-interceptor.service";
+import { TheMachineComponent } from './the-machine/the-machine.component';
+import {MachineService} from "./the-machine/machine.service";
 
 @NgModule({
   declarations: [
@@ -25,9 +23,7 @@ import {TokenInterceptorService} from "./shared/token-interceptor.service";
     SigninComponent,
     SignupComponent,
     HeaderComponent,
-    CampsComponent,
-    AddCampComponent,
-    DashboardComponent,
+    TheMachineComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +33,7 @@ import {TokenInterceptorService} from "./shared/token-interceptor.service";
     AppMaterialModule,
     FlexLayoutModule
   ],
-  providers: [DataService,AuthService,CampService,UIService,{
+  providers: [DataService,AuthService,MachineService,UIService,{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
