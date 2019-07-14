@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {DataService} from "../../shared/data-service.service";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-signin',
@@ -10,8 +11,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  maxDate: Date = new Date();
 
-  constructor(private data: DataService, private router: Router) {
+  constructor(private data: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -24,8 +26,6 @@ export class SigninComponent implements OnInit {
 
     this.data.login({username: email, password: password}).subscribe(success => {
         console.log("sucess");
-        this.router.navigate(['/camps'])
-
       },
       err => console.error("failed"))
 

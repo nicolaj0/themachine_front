@@ -8,9 +8,16 @@ import { SignupComponent } from './auth/signup/signup.component';
 import {FormsModule} from "@angular/forms";
 import {HeaderComponent} from "./header/header.component";
 import {DataService} from "./shared/data-service.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { CampsComponent } from './Camp/camps/camps.component';
 import {AppMaterialModule} from "./app-material/app-material.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {AuthService} from "./auth/auth.service";
+import {CampService} from "./Camp/camp.service";
+import { AddCampComponent } from './Camp/add-camp/add-camp.component';
+import { DashboardComponent } from './Camp/dashboard/dashboard.component';
+import {UIService} from "./shared/ui.service";
+import {TokenInterceptorService} from "./shared/token-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -18,16 +25,23 @@ import {AppMaterialModule} from "./app-material/app-material.module";
     SigninComponent,
     SignupComponent,
     HeaderComponent,
-    CampsComponent
+    CampsComponent,
+    AddCampComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    AppMaterialModule
+    AppMaterialModule,
+    FlexLayoutModule
   ],
-  providers: [DataService],
+  providers: [DataService,AuthService,CampService,UIService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
