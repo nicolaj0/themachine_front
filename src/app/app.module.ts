@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HeaderComponent} from "./header/header.component";
 import {DataService} from "./shared/data-service.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -16,6 +16,7 @@ import {UIService} from "./shared/ui.service";
 import {TokenInterceptorService} from "./shared/token-interceptor.service";
 import { TheMachineComponent } from './the-machine/the-machine.component';
 import {MachineService} from "./the-machine/machine.service";
+import {BeverageResolver} from "./machine-resolver.service";
 
 @NgModule({
   declarations: [
@@ -30,10 +31,11 @@ import {MachineService} from "./the-machine/machine.service";
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AppMaterialModule,
     FlexLayoutModule
   ],
-  providers: [DataService,AuthService,MachineService,UIService,{
+  providers: [DataService,AuthService,MachineService,BeverageResolver,UIService,{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true

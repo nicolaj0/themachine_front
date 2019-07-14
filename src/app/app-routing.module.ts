@@ -7,10 +7,11 @@ import {AuthGard} from "./auth/auth.gard";
 import {AddCampComponent} from "./Camp/add-camp/add-camp.component";
 import {DashboardComponent} from "./Camp/dashboard/dashboard.component";
 import {TheMachineComponent} from "./the-machine/the-machine.component";
+import {BeverageResolver} from "./machine-resolver.service";
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
-  {path: 'machine', component: TheMachineComponent, canActivate: [AuthGard]},
+  {path: 'machine', component: TheMachineComponent, canActivate: [AuthGard], resolve : {data : BeverageResolver}},
 ];
 
 @NgModule({

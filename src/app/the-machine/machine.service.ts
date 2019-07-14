@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {UIService} from "../shared/ui.service";
 import {Camp} from "../Camp/camp";
 import {UserBevarage} from "./userBevarage";
+import {Observable} from "rxjs";
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -20,8 +21,11 @@ export class MachineService {
   beverageServed(userBevarage: UserBevarage) {
 
     return this.http
-      .post<Camp>(BACKEND_URL + "/machine", userBevarage)
+      .post<UserBevarage>(BACKEND_URL + "/machine", userBevarage)
+  }
 
-
+  getLastSelection(): Observable<UserBevarage> {
+    return this.http
+      .get<UserBevarage>(BACKEND_URL + "/machine")
   }
 }

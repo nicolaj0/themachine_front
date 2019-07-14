@@ -1,13 +1,12 @@
 <section>
-  <form #f="ngForm" (ngSubmit)="onMakeCoffee(f)" class="machine" fxLayout fxLayoutAlign="center">
+  <form [formGroup]="form" (ngSubmit)="onMakeCoffee(form)" class="machine" fxLayout fxLayoutAlign="center">
     <mat-card fxFlex.xs="100%" fxFlex="40%">
       <mat-card-title fxLayoutAlign="center">Select your beverage</mat-card-title>
       <mat-card-content fxLayoutGap="20px" fxLayout="column" fxLayoutAlign="center center">
         <mat-button-toggle-group
           fxLayoutAlign="center center"
           name="beverage"
-          required
-          [(ngModel)]="model.beverageType"
+          formControlName="beverage"
           aria-label="Font Style">
           <mat-button-toggle
             *ngFor="let b of beverageTypes"
@@ -22,18 +21,19 @@
           [step]="step"
           name="sugar"
           id="sugar"
-          [(ngModel)] = "model.sugar"
+          formControlName="sugar"
         >
         </mat-slider>
         <mat-checkbox
           name="mug"
           color="primary"
-          [(ngModel)] = "model.useOwnMug"
+          formControlName="mug"
+
         >I use my mug.</mat-checkbox>
 
       </mat-card-content>
       <mat-card-actions fxLayoutAlign="center">
-        <button *ngIf="!loading" mat-raised-button type="submit" mat-button [disabled]="!f.valid">Start</button>
+        <button *ngIf="!loading" mat-raised-button type="submit" mat-button [disabled]="form.invalid">Start</button>
         <mat-spinner *ngIf="loading"></mat-spinner>
       </mat-card-actions>
     </mat-card>
