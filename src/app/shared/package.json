@@ -1,0 +1,9 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "scripts": {
+    "start": "ng serve --ssl --ssl-key c:\\dev\\localhost.key  --ssl-cert c:\\dev\\localhost.crt"
+  }
+}
